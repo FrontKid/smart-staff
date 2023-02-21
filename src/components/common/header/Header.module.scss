@@ -1,0 +1,85 @@
+@import "../../../scss/1-helpers/variables";
+
+.header {
+  background-color: #ededed;
+}
+
+.headerTop {
+  background-color: $light-blue;
+  padding: 0.8rem;
+}
+
+.innerTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cityInner {
+  position: relative;
+  padding: 0 1rem 0 1.3rem;
+}
+
+.activeCity {
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.cityGeoIcon {
+  left: 0;
+  width: 20px;
+  top: 50%;
+}
+.cityGeoIcon,
+.cityArrowIcon {
+  position: absolute;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+.cityArrowIcon {
+  right: 0;
+  width: 14px;
+  top: 60%;
+  transform-origin: 7px 2.45px;
+  transition: transform 0.4s ease 0s;
+
+  &.active {
+    transform: rotate(180deg);
+  }
+}
+
+.cityPopUp {
+  position: absolute;
+  top: 1.2rem;
+  left: -0.6rem;
+  background-color: $white;
+  color: $dark-brown;
+  padding: 0.55rem 0.9rem;
+  border-radius: 0.1rem;
+  transition: all 0.4s ease 0s;
+}
+
+.cityPopUp_item {
+  transition: all 0.4s ease 0s;
+  cursor: pointer;
+  &:hover {
+    color: $blue;
+  }
+}
+
+.phone {
+  position: relative;
+  padding-left: 1.55rem;
+  font-family: "Now";
+  &::before {
+    content: "";
+    background-image: url("../../../assets/image/header/phone.svg");
+    background-repeat: no-repeat;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-40%);
+  }
+}

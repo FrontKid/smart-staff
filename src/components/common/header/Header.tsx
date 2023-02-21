@@ -1,23 +1,56 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { v4 as getRandomKey } from 'uuid'
+
+import arrow from '../../../assets/image/header/arrow.svg'
+import geo from '../../../assets/image/header/geo.svg'
+
+import style from './Header.module.scss'
 //interface IHeader { }
-const navBar = [['Цены', 'price', 'drop'], ['Компаниям', 'company'], ['Частным лицам', 'private-person'], ['Работа у нас', 'work-us'], ['Контакты', 'contacts'],]
+
+const navBar = [['Цены', 'price', 'drop'], ['Компаниям', 'company'], ['Частным лицам', 'private-person'], ['Работа у нас', 'work-us', 'drop'], ['Контакты', 'contacts'],]
+const cities = [{ selected: true, city: 'Одесса' }, { selected: false, city: 'Львов' }, { selected: false, city: 'Киев' }]
 
 export const Header: FC = () => {
 
+  const [isVissible, setIsVissible] = useState<boolean>(false)
+
+
+  const choiceCity = (city: string) => {
+
+    return cities.map(obj => {
+      if (obj.city === city) {
+        setIsVissible(!isVissible)
+        return obj.selected = true
+      }
+
+      return obj.selected = false
+    })
+
+  }
+
 
   return (
-    <header>
-      <div className="header__top ">
-        <div className="container">
+    <header className={style.header}>
+      <div className={style.headerTop}>
+        <div className={`${style.innerTop} container`}>
           <p className='header__top-text'>Мы снизили цены на 20%. Успейте заказать по самой выгодной цене!</p>
-          <ul className='header__top-list'>
-            <li className='header__top-item active'>Одесса</li>
-            <li className='header__top-item'>Киев</li>
-            <li className='header__top-item'>Львов</li>
-          </ul>
-          <div className="header__top-phone"><a href="/">(048) 677-95-80</a></div>
+          <div className={style.cityInner} onClick={() => setIsVissible(!isVissible)}>
+            <img className={style.cityGeoIcon} src={geo} alt="geolocation" />
+            <span className={style.activeCity} >{cities.map(obj => obj.selected && obj.city)}</span>
+            {isVissible && <ul className={style.cityPopUp}>
+              {cities.map(obj =>
+                !obj.selected &&
+                <li key={getRandomKey()} onClick={() => choiceCity(obj.city)} className={style.cityPopUp_item}>
+                  {obj.city}
+                </li>)}
+            </ul>}
+            <img className={`${style.cityArrowIcon} ${isVissible && style.active}`} src={arrow} alt="arrow" />
+          </div>
+          <div className="header__top-phone">
+
+            <a className={style.phone} href="tel:0486779580">(048) 677-95-80</a>
+          </div>
         </div>
       </div>
       <div className="header__main">
