@@ -9,16 +9,47 @@ import logo from '../../../assets/image/header/logo.png'
 import style from './Header.module.scss'
 //interface IHeader { }
 
-const navBar = [['Цены', 'price', 'drop'], ['Компаниям', 'company'], ['Частным лицам', 'private-person'], ['Работа у нас', 'work-us', 'drop'], ['Контакты', 'contacts'],]
+const navBar = [
+  {
+    title: 'Цены',
+    link: 'price',
+    isDrop: true,
+    list: ['Компаниям', 'Физ. лицам']
+  },
+  {
+    title: 'Компаниям',
+    link: 'company',
+    isDrop: false,
+    list: []
+  },
+  {
+    title: 'Частным лицам',
+    link: 'private-person',
+    isDrop: false,
+    list: []
+  },
+  {
+    title: 'Работа у нас',
+    link: 'work-us',
+    isDrop: true,
+    list: ['Рабочий персонал', 'Офисный персонал']
+  },
+  {
+    title: 'Контакты',
+    link: 'contacts',
+    isDrop: false,
+    list: []
+  }
+]
 const cities = [{ selected: true, city: 'Одесса' }, { selected: false, city: 'Львов' }, { selected: false, city: 'Киев' }]
 
 export const Header: FC = () => {
 
   const [isVissible, setIsVissible] = useState<boolean>(false)
+  const [dropMenuVisible, setDropMenuVisible] = useState<boolean>(false)
 
 
   const choiceCity = (city: string) => {
-
     return cities.map(obj => {
       if (obj.city === city) {
         setIsVissible(!isVissible)
@@ -30,6 +61,17 @@ export const Header: FC = () => {
 
   }
 
+  const choiceMenu = (isDrop: boolean, current: number) => {
+
+    return navBar.map((obj, i) => {
+      if (obj.isDrop === isDrop && i === current) {
+        return setDropMenuVisible(!dropMenuVisible)
+      }
+      return obj
+    })
+
+
+  }
 
   return (
     <header className={style.header}>
@@ -60,9 +102,20 @@ export const Header: FC = () => {
         </div>
         <nav className={style.nav}>
           <ul className={style.navList}>
-            {navBar.map(([title, link]) => (
-              <li key={getRandomKey()}><Link onClick={() => { }} to={`/${link}`}>{title}</Link></li>)
+            {navBar.map(({ title, link, isDrop, list }, i) => (
+              <li key={getRandomKey()}><Link onClick={() => choiceMenu(isDrop, i)} to={`/${link}`}>
+                {
+                  title
+                }
+                {
+                  isDrop && dropMenuVisible &&
+                  <ul className={style.navBarPopUp}>
+                    {list.map(el => <li key={getRandomKey()}>{el}</li>)}
+                  </ul>
+                }
+              </Link></li>)
             )}
+
           </ul>
         </nav>
         <button className='button'>Заказать звонок</button>
