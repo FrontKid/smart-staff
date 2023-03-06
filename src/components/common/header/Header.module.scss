@@ -50,7 +50,8 @@
 
 .cityPopUp {
   position: absolute;
-  top: 1.2rem;
+  top: 1.3rem;
+  width: 120px;
   left: -0.6rem;
   background-color: $white;
   color: $dark-brown;
@@ -82,4 +83,22 @@
     top: 50%;
     transform: translateY(-40%);
   }
+}
+
+.headerMain {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: $dark-brown;
+  padding: 20px 0;
+}
+
+.nav {
+  min-width: 770px;
+}
+
+.navList {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }

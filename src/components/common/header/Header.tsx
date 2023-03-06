@@ -4,6 +4,7 @@ import { v4 as getRandomKey } from 'uuid'
 
 import arrow from '../../../assets/image/header/arrow.svg'
 import geo from '../../../assets/image/header/geo.svg'
+import logo from '../../../assets/image/header/logo.png'
 
 import style from './Header.module.scss'
 //interface IHeader { }
@@ -53,17 +54,18 @@ export const Header: FC = () => {
           </div>
         </div>
       </div>
-      <div className="header__main">
+      <div className={`${style.headerMain} container`}>
         <div className='header__main-logo-div'>
-          <img className='header__main-logo' src='../../../image/header/logo.png' alt="logotype" />
+          <img className='header__main-logo' src={logo} alt="logotype" />
         </div>
-        <nav>
-          <ul>
+        <nav className={style.nav}>
+          <ul className={style.navList}>
             {navBar.map(([title, link]) => (
               <li key={getRandomKey()}><Link onClick={() => { }} to={`/${link}`}>{title}</Link></li>)
             )}
           </ul>
         </nav>
+        <button className='button'>Заказать звонок</button>
       </div>
     </header>
   )
